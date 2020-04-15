@@ -13,7 +13,7 @@
                     {{ hidden }}
                 {% endfor %}
                 {% for field in form.visible_fields %}
-                    {{ fields.errors }}
+                    {{ field.errors }}
                     {{ field.help_text }}
                     {{ field }}
                     <br/>
@@ -22,6 +22,10 @@
                 <br/>
                 <input type="submit" name="submit" value="Create Page" />
             </form>
+        </div>
+
+        <div>
+            <a href="/rango/">Index</a><br />
         </div>
     </body>
 </html>
