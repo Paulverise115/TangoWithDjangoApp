@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 
 
+
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
@@ -48,7 +49,6 @@ def add_category(request):
         else:
             print(form.errors)
     return render(request, 'rango/add_category.html', {'form': form})
-
 
 def add_page(request, category_name_slug):
     try:
