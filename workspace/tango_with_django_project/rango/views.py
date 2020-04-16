@@ -99,15 +99,15 @@ def register(request):
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
 
-                profile.save()
+            profile.save()
 
-                registered = True
-            else:
-                print(user_form.errors, profile_form.errors)
+            registered = True
         else:
-            user_form = UserForm()
-            profile_form = UserProfileForm()
+            print(user_form.errors, profile_form.errors)
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
 
-        return render(request, 'rango/register.html', context= {'user_form': user_form,
-                                                                'profile_form': profile_form,
-                                                                'registered': registered})
+    return render(request, 'rango/register.html', context={'user_form': user_form,
+                                                               'profile_form': profile_form,
+                                                               'registered': registered})
