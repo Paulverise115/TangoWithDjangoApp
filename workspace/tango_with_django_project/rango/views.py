@@ -7,6 +7,7 @@ from rango.forms import PageForm
 from django.shortcuts import redirect
 from django.urls import reverse
 from rango.forms import UserForm, UserProfileForm
+from django.contrib.auth import authenticate, login
 
 
 
@@ -114,7 +115,7 @@ def register(request):
 
 
 def user_login(request):
-    if request.method='POST':
+    if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
