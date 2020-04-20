@@ -31,7 +31,7 @@ SECRET_KEY = '26*$ud*xw8wy7%ulagt_mk4!l9)&zaz=^=c3tm3v5v!jwmyax-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['http://paulrango.pythonanywhere.com/']
+ALLOWED_HOSTS = ['paulrango.pythonanywhere.com']
 
 
 # Application definition
