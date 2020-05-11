@@ -46,4 +46,8 @@ class indexTest(unittest.TestCase):
                 'url': 'http://docs.python.org/3/tutorial/',
                 'views': '10'}
 
-        
+        configFromFake = localCopyPropertyData
+
+        self.assertEqual(configFromFake['title'], 'Official Python Tutorial')
+
+
