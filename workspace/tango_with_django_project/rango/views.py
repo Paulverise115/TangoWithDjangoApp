@@ -10,17 +10,31 @@ from rango.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from abc import ABC, abstractmethod
+
+
+class ConfigureCategories(ABC):
+    @abstractmethod
+    def getConfig(self):
+        pass
+
+
+class ConfigFromDatabase(ConfigureCategories):
+
+    def getConfig(self):
+        category_list = Category.objects.order_by('-likes')[:5]
+        page_list = Page.objects.order_by('-views')[:5]
+
+        context_dict = {}
+        context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+        context_dict['categories'] = category_list
+        context_dict['pages'] = page_list
+
+        return context_dict
 
 
 def index(request):
-    category_list = Category.objects.order_by('-likes')[:5]
-    page_list = Page.objects.order_by('-views')[:5]
-
-    context_dict = {}
-    context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-    context_dict['categories'] = category_list
-    context_dict['pages'] = page_list
-
+    context_dict = ConfigFromDatabase.getConfig()
     visitor_cookie_handler(request)
     response = render(request, 'rango/index.html', context=context_dict)
     return response
@@ -85,11 +99,11 @@ def add_page(request, category_name_slug):
                 page.views = 0
                 page.save()
 
-                return redirect(reverse('rango:show_category', kwargs={'category_name_slug':category_name_slug}))
+                return redirect(reverse('rango:show_category', kwargs={'category_name_slug': category_name_slug}))
         else:
             print(form.errors)
 
-    context_dict = {'form': form, 'category':category}
+    context_dict = {'form': form, 'category': category}
     return render(request, 'rango/add_page.html', context=context_dict)
 
 
@@ -122,8 +136,8 @@ def register(request):
         profile_form = UserProfileForm()
 
     return render(request, 'rango/register.html', context={'user_form': user_form,
-                                                               'profile_form': profile_form,
-                                                               'registered': registered})
+                                                           'profile_form': profile_form,
+                                                           'registered': registered})
 
 
 def user_login(request):
